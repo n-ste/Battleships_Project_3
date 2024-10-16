@@ -1,13 +1,14 @@
-import gspread
-from google.oauth2.service_account import Credentials
 
-SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-    ]
+board = []
 
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('battleships')
+for i in range(0,10):
+    board.append(["."] * 10)
+
+def print_board(board):
+    for i in board:
+        print(" ".join(i))
+    
+def main():
+    print_board(board)
+    
+main()
