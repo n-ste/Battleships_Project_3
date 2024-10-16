@@ -1,3 +1,4 @@
+import random
 
 board = []
 
@@ -10,24 +11,24 @@ def print_board(board):
     
 
     
-def guess_row(board):
-    return 0, len(board) - 1
+def generate_guess():
+    return random.randint(0, 9), random.randint(0, 9)
 
-    guess_user_row = guess_row(board)
-
-def guess_column(board):
-    return 0, len(board[0]) - 1
-
-    guess_user_column = guess_column(board)
-    
 def guess_location():   
-    user_column_guess = input("Enter a Column Number: ")
-    user_row_guess = input("Enter a Row Number: ")
+    user_guess = generate_guess()
     
+    user_column_guess = int(input("Enter a Column Number: "))
+    user_row_guess = int(input("Enter a Row Number: "))
 
-    
+def validate_location_guess(guess_location):
+    if guess_location == generate_guess:
+        print("Battleship has been sunk, Congratulations!") 
+    else:
+        print("No hit! Better luck next time.")
+        
 def main():
     print_board(board)
     guess_location()
+    validate_location_guess(guess_location)
      
 main()
