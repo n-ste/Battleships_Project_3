@@ -2,8 +2,8 @@ import random
 
 board = []
 
-for space in range(0,10):
-    board.append(["."] * 10)
+for space in range(0,5):
+    board.append(["."] * 5)
 
 def print_board(board):
     for space in board:
@@ -12,23 +12,28 @@ def print_board(board):
 
     
 def generate_guess():
-    return random.randint(0, 9), random.randint(0, 9)
+    return random.randint(0, 5), random.randint(0, 5)
 
 def guess_location():   
-    user_guess = generate_guess()
-    
     user_column_guess = int(input("Enter a Column Number: "))
     user_row_guess = int(input("Enter a Row Number: "))
+    return user_column_guess,user_column_guess
 
-def validate_location_guess(guess_location):
-    if guess_location == generate_guess:
-        print("Battleship has been sunk, Congratulations!") 
+def validate_location_guess(user_guess, computer_location):
+    if user_guess == computer_location:
+        print("Battleship has been sunk, Congratulations!")
+        print_board(board) 
     else:
         print("No hit! Better luck next time.")
+        board[user_guess[0]][user_guess[1]] = "X"
+        print_board(board)
         
 def main():
+    computer_location = generate_guess()
     print_board(board)
-    guess_location()
-    validate_location_guess(guess_location)
+    
+    user_guess = guess_location()
+    validate_location_guess(user_guess, computer_location)
      
-main()
+if __name__ == "__main__":     
+    main()
