@@ -30,10 +30,10 @@ def generate_row_guess():
 # Computer generates a column value       
 def generate_column_guess():
     return random.randint(0, 4)
-
+    
 computer_row = generate_row_guess()
 computer_column = generate_column_guess()
-    
+
 # Displays the computers row and column values for validation purposes
 def guess_location():   
     print(f"Computer's guess location: {computer_row}, {computer_column}")
@@ -59,7 +59,6 @@ def validate_location_guess(user_row_guess, user_column_guess):
     if user_row_guess == computer_row and user_column_guess == computer_column:
         print("Battleship has been sunk, Congratulations!")
         board[user_row_guess][user_column_guess] = "/"
-        score += 1
     else:
         print("No hit! Better luck next time.")
         board[user_row_guess][user_column_guess] = "X"
