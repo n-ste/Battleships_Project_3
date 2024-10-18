@@ -53,12 +53,17 @@ def guess_entry():
 
 # Provides validation for the users guess of the computers ships
 def validate_location_guess(user_row_guess, user_column_guess):
+    
+    # If user guesses the same coordinates more than once they'll be met with an message
     if board[user_row_guess][user_column_guess] in ["X", "/"]:
         print("You've already guessed that location! Try again.")
-        
+    
+    # If the user guesses the correct coordiates of the ship they'll be met with a message advising of this with an "/" displayed on the board
     if user_row_guess == computer_row and user_column_guess == computer_column:
         print("Battleship has been sunk, Congratulations!")
         board[user_row_guess][user_column_guess] = "/"
+        
+    # If the user guesses the incorrect coordiates of the ship they'll be informed of this with an "X" displayed on the board
     else:
         print("No hit! Better luck next time.")
         board[user_row_guess][user_column_guess] = "X"
@@ -74,16 +79,16 @@ def game_over():
         guess_location()
         user_row_guess, user_column_guess = guess_entry()
         game_over = validate_location_guess(user_row_guess, user_column_guess)
-        attempts += 1  
-    if attempts == 4:
+        attempts += 1 
         
 # Functions added to main for easier log of called functions
 def main():
     welcome()
-    guess_location()
+    #guess_location()
     user_row_guess, user_column_guess = guess_entry()
     validate_location_guess(user_row_guess, user_column_guess)
     game_over()
+    print("All attempts exceeded, Game Over!")
 
 # Calls main function
 if __name__ == "__main__":     
