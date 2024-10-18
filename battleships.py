@@ -84,6 +84,7 @@ def game_over():
 # Functions added to main for easier log of called functions
 def main():
     welcome()
+    # Computers guess has been commented out but can be displayed by the assessor so they can see the result if the correct coordinates are entered
     #guess_location()
     user_row_guess, user_column_guess = guess_entry()
     validate_location_guess(user_row_guess, user_column_guess)
