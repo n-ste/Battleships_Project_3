@@ -1,27 +1,34 @@
+# Imported the random library to help in creating a randon integer for computer
 import random
 
+# Empty array for the player board
 board = []
 
 # Initialize the board
 for space in range(0, 5):
     board.append(["."] * 5)
 
+# Prints the board and removes square brackets
 def print_board(board):
     for space in board:
         print(" ".join(space))
-        
+
+# Computer generates a row value        
 def generate_row_guess():
     return random.randint(0, 4)
-    
+
+# Computer generates a column value       
 def generate_column_guess():
     return random.randint(0, 4)
     
 computer_row = generate_row_guess()
 computer_column = generate_column_guess()
 
+# Displays the computers row and column values for validation purposes
 def guess_location():   
     print(f"Computer's guess location: {computer_row}, {computer_column}")
 
+# Instructs the user to input their guess for the location of the computers ships
 def guess_entry():
     while True:
         try:
@@ -34,6 +41,7 @@ def guess_entry():
         except ValueError:
             print("Invalid input. Please enter integers only.")
 
+# Provides validation for the users guess of the computers ships
 def validate_location_guess(user_row_guess, user_column_guess):
     if user_row_guess == computer_row and user_column_guess == computer_column:
         print("Battleship has been sunk, Congratulations!")
@@ -44,10 +52,12 @@ def validate_location_guess(user_row_guess, user_column_guess):
         
     print_board(board)
 
+# Functions added to main for easier log of called functions
 def main():
     guess_location()
     user_row_guess, user_column_guess = guess_entry()
     validate_location_guess(user_row_guess, user_column_guess)
 
+# Calls main function
 if __name__ == "__main__":     
     main()
