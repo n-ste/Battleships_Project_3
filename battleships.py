@@ -34,13 +34,6 @@ class Battleships:
             ships.add((row, col))
         return ships
 
-    # Prints location of the ships locations for so the assessor can check for validity
-    def print_ship_locations(self):
-        print("Current ship locations for validation:")
-        for ship in self.user_ships:
-            print(ship)
-        print(" ")
-
     # Urges the user to type their guesses for the ships to the board
     def guess_entry(self):
         while True:
@@ -102,9 +95,6 @@ class Battleships:
 
     def play_game(self):
         self.welcome()
-        
-        # Print ship locations for the user
-        self.print_ship_locations()
         
         # Allows the user to guess as long as the number of attempts is below the max amount
         while self.attempts < self.max_attempts and self.user_ships and self.computer_ships:
