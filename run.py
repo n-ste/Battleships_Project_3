@@ -43,9 +43,9 @@ class Battleships:
         while True:
             try:
                 # Asks the user to guess the row they believe the ship is on
-                usr_row_guess = int(input("Enter a Row Number: "))
+                usr_row_guess = int(input("Enter a Row Number:/n"))
                 # Asks the user to guess the column they believe the ship is on
-                usr_col_guess = int(input("Enter a Column Number: "))
+                usr_col_guess = int(input("Enter a Column Number:\n"))
 
                 # If invalid output is placed on the board
                 # User will be directed to use the correct integers

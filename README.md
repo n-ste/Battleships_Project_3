@@ -1,32 +1,80 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Battleships
 
-Welcome,
+## How to Play
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+The rules of the game are quite simple. There will be a 5X5 board for the user and computer. Each board will have 5 ships on it, concealed to the user and computer.
 
-## Reminders
+The user and computer will have 5 attempts to guess the location of all 5 of their opponents ships.
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+If the user and computer guess the correct location of one of their opponents ships they'll receive a message on the terminal and their board will be updated to display this.
 
-## Creating the Heroku app
+At the end of the 5 attempts, the user will be able to compare both boards to determine who won, along with a message advising the game is over.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+## Design
 
-1. `heroku/python`
-2. `heroku/nodejs`
+In a traditional Battleships game the users would be playing on a 10X10 board, with some ships that span across different columns and rows. However, for simplicity I opted to make the board smaller at 5X5, with each ship only covering one row and column.
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+### Features
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+When the game starts the user will be given instructions on the game, these will advise:
 
-Connect your GitHub repository and deploy as normal.
+* That there will be 5 ships spanned across a 5X5 board.
 
-## Constraints
+* The user will be advised they'll have 5 guesses to locate all of the ships on their opponents board.
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+* The user will then be met with an alert requesting they provide a number between 1 and 4 to choose the row.
 
----
+* They'll then be advised to select a column number between 1 and 4.
 
-Happy coding!
+* The user will then be given a message advising if they hit the computer ship or not, and also a message advising if the computer hit theirs. Their board will then be displayed on the terminal.
+
+* This process will repeat 4 more times, at the end both boards will be displayed on the terminal allowing the user to see the overall score by assessing the boards and a "Game Over!" message will appear.
+
+## Testing
+
+### Validation
+
+I tested the game in several ways:
+
+* PEP8 Command Line
+  * The issues that arose can be seen in the "Bugs" section below.
+
+* CI Python Linter
+  * For this, I followed the link and posted my Pthon code inside. When this came back I was given feedback advising that there were no errors with my code.
+  * ![CI Python Linter](./assets/images/CI_linter.png)
+
+* Playing the Game
+
+#### Bugs
+
+* PEP8 Command Line
+  * To validate the Python code using the command line I first had to run "pip install pycodestyle" on the terminal.
+  * I then had to run "pycodestyle run.py" to the terminal. 
+  * This allowed me to see the errors that came with my code:
+  * ![PEP8 Command Line Errors](./assets/images/PEP8_errors.png)
+
+#### Solved
+
+* PEP8 Command Line
+  * The bug I had came from my lines of code exceeding the recommended amound of characters for Python code, this was mainly for comments.
+  * I resolved this by separating my comments into sections and placeing them on the next row that followed.
+  * Another issue was that my variable names contributed to the lenth of the lines of code. I resolved this by shortening these variable names.
+  * Once amended, I ran "pycodestyle run.py" again and I was met with no feedback.
+  * ![PEP8 Command Line Fix](./assets/images/PEP8_fix.png)
+
+#### Remaining
+
+* There were no bugs remaining.
+
+## Deployment
+
+## Credits
+
+### Python
+
+### Libraries
+
+### Code Institute
+
+### Youtube
+
