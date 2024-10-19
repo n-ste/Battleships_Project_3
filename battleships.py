@@ -5,8 +5,10 @@ import random
 class Battleships:
     # Generates board, places ships on the board, and provides the amount of guesses
     def __init__(self):
-        self.board = [["."] * 5 for _ in range(5)]
-        self.ships = self.place_ships()
+        self.user_board = [["."] * 5 for _ in range(5)]
+        self.computer_board = [["."] * 5 for _ in range(5)]
+        self.user_ships = self.place_ships()
+        self.computer_ships = self.place_ships()
         self.max_attempts = 5
         self.attempts = 0
         
@@ -19,8 +21,8 @@ class Battleships:
         print(" ")
 
     # Displays the board to the terminal
-    def print_board(self):
-        for row in self.board:
+    def print_board(self, board):
+        for row in board:
             print(" ".join(row))
 
     # Places the ships on the board and generates the computers location
@@ -35,7 +37,7 @@ class Battleships:
     # Prints location of the ships locations for so the assessor can check for validity
     def print_ship_locations(self):
         print("Current ship locations for validation:")
-        for ship in self.ships:
+        for ship in self.user_ships:
             print(ship)
         print(" ")
 
@@ -58,27 +60,45 @@ class Battleships:
                 print("Invalid input. Please enter integers only.")
 
     # Validated the users output
-    def validate_location_guess(self, user_row_guess, user_column_guess):
-        if self.board[user_row_guess][user_column_guess] in ["X", "/"]:
+    def validate_user_location_guess(self, user_row_guess, user_column_guess):
+        if self.computer_board[user_row_guess][user_column_guess] in ["X", "/"]:
             
             # If the location has already been guessed the user will have another chance to guess
             print("You've already guessed that location! Try again.")
             return False
 
         # When the users guess is correct they'll receive a message advising of this
-        if (user_row_guess, user_column_guess) in self.ships:
+        if (user_row_guess, user_column_guess) in self.computer_ships:
             print("Battleship has been sunk, Congratulations!")
-            self.board[user_row_guess][user_column_guess] = "/"
-            self.ships.remove((user_row_guess, user_column_guess))  # Remove the sunk ship
-            self.print_board()
+            self.computer_board[user_row_guess][user_column_guess] = "/"
+            self.computer_ships.remove((user_row_guess, user_column_guess))  # Remove the sunk ship
+            self.print_board(self.computer_board)
             return True
         
         # When the users guess is incorrect they'll receive a message advising of this
         else:
             print("No hit! Better luck next time.")
-            self.board[user_row_guess][user_column_guess] = "X"
-            self.print_board()
+            self.computer_board[user_row_guess][user_column_guess] = "X"
+            self.print_board(self.computer_board)
             return False
+    
+    # Computer guesses location of ships on the users board
+    def computer_guess(self):
+        # Computer guesses the coordiates of the users ships
+        row, col = random.randint(0, 4), random.randint(0, 4)
+        while self.user_board[row][col] in ["x", "/"]:
+            row, col = random.randint(0, 4), random.randint(0, 4)
+        
+        # If a ship is hit a message will display to the terminal
+        if (row, col) in self.user_ships:
+            print("Computer hit your ship!")
+            self.user_board[row][col] = "/"
+            self.user_ships.remove((row, col))
+            
+        # If the computer misses a message will display to the terminal
+        else:
+            print("Computer didn't hit one of your ships!")
+            self.user_board[row][col] = "X"
 
     def play_game(self):
         self.welcome()
@@ -87,16 +107,30 @@ class Battleships:
         self.print_ship_locations()
         
         # Allows the user to guess as long as the number of attempts is below the max amount
-        while self.attempts < self.max_attempts and self.ships:
+        while self.attempts < self.max_attempts and self.user_ships and self.computer_ships:
             user_row_guess, user_column_guess = self.guess_entry()
-            if self.validate_location_guess(user_row_guess, user_column_guess):
-                # If all ships are sunk
-                if not self.ships:  
-                    print("You got them all, you won!")
-                    return
+            self.validate_user_location_guess(user_row_guess, user_column_guess)
             self.attempts += 1
-        # Lets the user know the game is over
-        print("Game Over!")
+                
+            # If all ships are sunk
+            if not self.computer_ships:  
+                print("You got them all, you won!")
+                return
+            
+            # The computer takes their turn
+            self.computer_guess()
+        
+            # Game over alert for if the user has lost
+            if not self.user_ships:
+                print("All of your ships have been sunk, Game Over!")
+                return
+    
+        print("GAME OVER!")
+        print("User Board:")
+        self.print_board(self.user_board)
+        print("Computers board:")
+        self.print_board(self.computer_board)
+
         
 # Calls the functions in the main function
 def main():
