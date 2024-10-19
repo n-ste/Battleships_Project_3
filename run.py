@@ -39,6 +39,8 @@ class Battleships:
         return ships
 
     # Urges the user to type their guesses for ships
+    # Youtube video helped in understanding concept here
+    # Link in README creds
     def guess_entry(self):
         while True:
             try:
